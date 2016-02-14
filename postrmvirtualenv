@@ -1,0 +1,17 @@
+#!/bin/zsh
+# This hook is run after a virtualenv is deleted.
+# argument: full path to environment directory
+
+project_name=$(basename $1)
+venv_symlink=$HOME/server/$project_name/venv
+
+echo 'searching for symlink:' $venv_symlink
+if [ -L "$venv_symlink" ];
+then
+    echo 'found a symlink to the deleted environment'
+    echo 'removing it...'
+    rm -rf $venv_symlink
+    echo 'rm -rf' $venv_symlink
+else
+    echo 'no symlink traces found' 
+fi
